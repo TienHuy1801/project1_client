@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { logoutUserRequest } from "../../../redux/user/action";
 import { useRouter } from "next/dist/client/router";
 import { logoutCartRequest } from "../../../redux/cart/action";
+import { alertService } from "../../Alert/alert.service";
 
 const Header = () => {
   const [search, setSearch] = useState();
@@ -33,6 +34,7 @@ const Header = () => {
     localStorage.removeItem("user");
     dispatch(logoutUserRequest());
     dispatch(logoutCartRequest());
+    alertService.success("Đăng xuất thành công");
     route.push("/");
   };
 

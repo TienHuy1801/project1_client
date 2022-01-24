@@ -28,7 +28,7 @@ const DeliveringItem = ({ item }) => {
       alertService.success(mess.data);
       location.reload();
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.response.data);
     }
   }
 
@@ -42,7 +42,7 @@ const DeliveringItem = ({ item }) => {
       alertService.success(mess.data);
       location.reload();
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.response.data);
     }
   }
 

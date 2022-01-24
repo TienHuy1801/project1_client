@@ -16,7 +16,7 @@ const CartItemComp = ({ cartId, product, cartItemId, quantity }) => {
       location.reload();
       alertService.success("Xóa thành công")
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.response.data);
     }
   };
   return (

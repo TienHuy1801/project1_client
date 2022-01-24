@@ -8,7 +8,7 @@ const OrderComp = ({ orderId }) => {
   useEffect(() => {
     async function fetchData() {
       const response = await orderApi(orderId);
-      setOrders(response.data.orders);
+      if (response.data) setOrders(response.data.orders);
     }
     fetchData();
   }, []);

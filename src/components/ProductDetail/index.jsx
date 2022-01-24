@@ -10,9 +10,11 @@ import {
 import { useSelector } from "react-redux";
 import { addToCartApi } from "../../../API/cart";
 import { alertService } from "../Alert/alert.service";
+import { useRouter } from "next/dist/client/router";
 
 const ProductDetailComp = ({ product }) => {
   const user = useSelector((state) => state.user);
+  const route = useRouter();
 
   const addToCart = async (productId) => {
     try {
@@ -21,12 +23,13 @@ const ProductDetailComp = ({ product }) => {
           cartId: user.user.cartId,
           productId: productId,
         });
-        alertService.success(mess.data.message);
+        alertService.success(mess.data);
       } else {
+        alertService.error("Chưa đăng nhập");
         route.push("/login");
       }
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.response.data);
     }
   };
 

@@ -19,29 +19,37 @@ const RegisterComp = ({ user, edit }) => {
 
   const submitRegister = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      await registerApi({
-        fullName: fullName,
-        email: email,
-        password: password,
-        place: place,
-      });
-      alertService.success("Đăng ký thành công. Vui lòng xác nhận email để sử dụng.");
-      router.push("/login");
-    } else {
-      alertService.error("Mật khẩu không khớp");
+    try {
+      if (password === confirmPassword) {
+        await registerApi({
+          fullName: fullName,
+          email: email,
+          password: password,
+          place: place,
+        });
+        alertService.success("Đăng ký thành công. Xác thực email để sử dụng.");
+        router.push("/login");
+      } else {
+        alertService.error("Mật khẩu không khớp");
+      }
+    } catch (error) {
+      alertService.error(error.response.data);
     }
   };
   const submitEdit = async (e) => {
     e.preventDefault();
-    const userRes = await editProfileApi({
-      userId: user.id,
-      fullName: fullName,
-      place: place,
-    });
-    alertService.success("Chỉnh sửa thành công");
-    dispatch(fetchLoginSuccess(userRes.data))
-    router.push("/");
+    try {
+      const userRes = await editProfileApi({
+        userId: user.id,
+        fullName: fullName,
+        place: place,
+      });
+      alertService.success("Chỉnh sửa thành công");
+      dispatch(fetchLoginSuccess(userRes.data));
+      router.push("/");
+    } catch (error) {
+      alertService.error(error.response.data);
+    }
   };
 
   return (

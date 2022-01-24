@@ -21,9 +21,9 @@ const ResetComp = () => {
     e.preventDefault();
     try {
       const message = await resetApi({email: email.current.value});
-      alertService.success(message.data);
+      alertService.success("Gửi yêu cầu thành công");
     } catch (err) {
-      alertService.error(err);
+      alertService.error(err.response.data);
     }
   };
 

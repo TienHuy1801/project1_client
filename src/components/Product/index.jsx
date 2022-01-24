@@ -27,7 +27,7 @@ const Product = ({ product, admin }) => {
       alertService.success("Xóa thành công");
       dispatch(fetchProductsSuccess(products.products.filter(prod => prod._id != productId)));
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.response.data);
     }
   };
 
@@ -45,7 +45,7 @@ const Product = ({ product, admin }) => {
         route.push("/login");
       }
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.response.data);
     }
   };
 

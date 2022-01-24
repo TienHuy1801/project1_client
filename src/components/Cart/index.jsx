@@ -13,10 +13,7 @@ const CartComp = ({ cart }) => {
   const products = useSelector((state) => state.products);
   const user = useSelector((state) => state.user);
   const route = useRouter();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (products.status !== "succeeded") dispatch(fetchProductsRequest());
-  }, []);
+  
   const orderCart = async () => {
     try {
       if (cart.price <= 0) {
@@ -25,11 +22,11 @@ const CartComp = ({ cart }) => {
         const mess = await addOrderApi({
           userId: user.user.id,
         });
-        alertService.success(mess.data.message);
+        alertService.success(mess.data);
         route.push("/order");
       }
     } catch (error) {
-      alertService.error(error);
+      alertService.error(error.response.data);
     }
   };
   if (cart) {
@@ -69,6 +66,7 @@ const CartComp = ({ cart }) => {
             onClick={() => {
               orderCart();
             }}
+            style={{marginBottom: "30px"}}
           >
             Đặt hàng
           </Button>

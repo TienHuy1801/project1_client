@@ -21,7 +21,7 @@ const ChangePass = ({ userId }) => {
         alertService.success(message.data);
         router.push('/');
       } catch (err) {
-        alertService.error(err);
+        alertService.error(err.response.data);
       }
     } else {
       alertService.error("Mật khẩu không khớp");

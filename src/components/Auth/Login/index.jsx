@@ -5,6 +5,7 @@ import style from "./login.module.scss";
 import { fetchLoginRequest } from "../../../redux/user/action";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
+import { alertService } from "../../Alert/alert.service";
 
 const LoginComp = () => {
   const router = useRouter();
@@ -22,14 +23,18 @@ const LoginComp = () => {
   const email = useRef();
   const password = useRef();
 
-  const submit = (e) => {
+  const submit = (e) => {      
     e.preventDefault();
-    dispatch(
-      fetchLoginRequest({
-        email: email.current.value,
-        password: password.current.value,
-      })
-    );
+    try {
+      dispatch(
+        fetchLoginRequest({
+          email: email.current.value,
+          password: password.current.value,
+        })
+      );
+    } catch (error) {
+      alertService.error(error.response.data);
+    }
   };
 
   return (

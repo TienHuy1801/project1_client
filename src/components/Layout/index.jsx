@@ -18,14 +18,14 @@ const Layout = ({ children }) => {
     if (user.status === "idle") {
       const dataUser = JSON.parse(localStorage.getItem("user"));
       if (dataUser) dispatch(fetchLoginSuccess(dataUser));
-      else if (route.pathname != "/") route.push("/login");
+      else if (route.pathname != "/" && route.pathname != "/reset/[id]") route.push("/login");
+
+      if (products.status === "idle") {
+        dispatch(fetchProductsRequest());
+      }
     }
   }, []);
-  useEffect(() => {
-    if (products.status === "idle") {
-      dispatch(fetchProductsRequest());
-    }
-  }, []);
+  
   return (
     <>
       <Head>

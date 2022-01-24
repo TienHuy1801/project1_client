@@ -28,7 +28,7 @@ const AddProduct = ({ setAddProduct, user }) => {
       dispatch(fetchProductsRequest());
       alertService.success("Thêm thành công");
     } catch (err) {
-      alertService.error(err);
+      alertService.error(err.response.data);
     }
   };
 
